@@ -1,0 +1,9 @@
+.header, .footer {
+  background: black;
+  color: white;
+  padding: 0 20px;
+}
+
+.header a, .header h3, .footer a {
+  color: white;
+}

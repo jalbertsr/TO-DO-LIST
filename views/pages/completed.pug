@@ -1,0 +1,8 @@
+extends ../layout
+
+block content
+  .jumbotron
+    h1 DONE-LIST
+    ul 
+      each complete, j in completed
+        li= complete
