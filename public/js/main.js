@@ -1,43 +1,55 @@
 console.log('Javascript ready to go...')
 
 $('.remove').on('click', function (e) {
-  let $input = $(this).siblings('input')
-  let tasksPosition = $input.val()
+  e.preventDefault()
+  let taskID = $(this).val()
 
   $.ajax({
-    url: '/tasks/' + tasksPosition,
+    url: '/task/' + taskID,
     method: 'DELETE'
   })
   .then( data => {
-    console.log(data)
-    window.location.reload()
+    $(this).parent().remove()
   })
 
 })
 
 $('.done').on('click', function (e) {
-  let $input = $(this).siblings('input')
-  let tasksPosition = $input.val()
-
-  $.ajax({
-    url: '/done/' + tasksPosition,
-    method: 'DELETE'
-  })
-  .then( data => {
-    console.log(data)
-    window.location.reload()
-  })
-
-})
-
-$('button.removeAll').on('click', function (e) {
   e.preventDefault()
+  let taskID = $(this).val()
+
   $.ajax({
-    url: '/deleteAll/',
-    method: 'DELETE'
+    url: '/task/' + taskID,
+    method: 'PUT'
   })
   .then( data => {
-    console.log(data)
+    $(this).parent().remove()
+  })
+
+})
+
+$('button.removeAll').on('click', function (e) { 
+  e.preventDefault()
+  var idsArray = $('.checkbox:checked').map(function() {
+    return $(this).val()
+  }).get()
+
+  var ids = idsArray.join(',')
+
+  $.ajax({
+    url: '/tasks/'+ ids,
+    method: 'PUT'
+  })
+  .then( data => {
     window.location.reload()
   })
 })
+
+$('p.title').on('click', function(){
+  console.log('jjjjj')
+  
+});
+
+
+
+

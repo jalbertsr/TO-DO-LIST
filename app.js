@@ -5,9 +5,9 @@ const strftime = require('strftime')
 const app = express()
 
 app.set('view engine', 'pug')
-app.locals.pretty = true;
+app.locals.pretty = true
 
-app.use( express.static ( path.join(__dirname,'public')) )
+app.use ( express.static ( path.join(__dirname, 'public')) )
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -15,44 +15,78 @@ app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
 app.use(bodyParser.json())
 
+
+
 let tasks = []
 let completed = []
 
-app.get('/', (req,res) => {
+// --------------- views routes ----------- 
+app.get('/', (req, res) => {
   res.render('pages/index', { tasks })
 })
 
-app.post('/tasks', (req,res) => {
+app.get('/completed/', (req, res) => {
+  res.render('pages/completed', { completed })
+})
+
+// -------------- route calls -------------
+app.post('/tasks', (req, res) => {
   const taskName = req.body.task
   const date = strftime('%F %T', new Date())
+  const createId = () => '_' + Math.random().toString(36).substr(2, 9)
+  // Math.random should be unique because of its seeding algorithm.
+  // Convert it to base 36 (numbers + letters), and grab the first 9 characters
+  // after the decimal.
 
-  const newTask = `${taskName} \n (Created at: ${date})`
+  const newTask = {name: `${taskName}`, time: `(Created at: ${date})`, ID: createId()}
 
   tasks.push(newTask)
   res.redirect('/')
 })
 
-app.delete('/tasks/:position', (req, res) => {
-  tasks.splice(req.params.position, 1)
+app.delete('/task/:id', (req, res) => {
+
+  const id = req.params.id 
+
+  // for (let i = 0; i < tasks.length; i++) {
+  //   if(tasks[i].ID === id) tasks.splice(i,1)
+  // }
+
+  tasks = tasks.filter( task => task.ID !== id)
+
   res.status(200).send('ok delete')
 })
 
-app.delete('/done/:position', (req, res) => {
-  completed.push(tasks[req.params.position])
-  tasks.splice(req.params.position, 1)
+app.put('/task/:id', (req, res) => {
+
+  const id = req.params.id
+
+  for (let i = 0; i < tasks.length; i++) {
+    if(tasks[i].ID === id){
+      completed.push(tasks[i])
+      tasks.splice(i,1)
+    }
+  }
+
   res.status(200).send('ok done')
 })
 
-app.delete('/deleteAll/', (req, res) => {
-  tasks.forEach((task) => {
-    completed.push(task)
-  })
-  tasks.splice(0, tasks.length)
-  res.status(200).send('ok makeAll done')
-})
+app.put('/tasks/:ids', (req, res) => {
+  
+  const idsArray = req.params.ids.split(',')
+  console.log(idsArray)
 
-app.get('/completed/', (req, res) => {
-  res.render('pages/completed', {completed})
+  for (let i = 0; i < idsArray.length; i++) {
+    for(let j = 0; j< tasks.length; j++) {
+        if(idsArray[i] === tasks[j].ID){
+         completed.push(tasks[j])
+         tasks.splice(j, 1)
+       }
+    }
+  }
+
+  res.status(200).send('ok checkboxes done')
 })
 
 app.listen(3001)
+

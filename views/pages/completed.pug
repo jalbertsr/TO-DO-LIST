@@ -4,5 +4,9 @@ block content
   .jumbotron
     h1 DONE-LIST
     ul 
-      each complete, j in completed
-        li= complete
+      each complete in completed
+        li
+          p= complete.name
+          p= complete.time
+
+          

@@ -1,16 +1,23 @@
 extends ../layout
 
 block content
-  .jumbotron
-    h1 TO-DO-LIST
-    form(action="tasks", method="POST")
-      input.input-lg(name="task")
-      button.btn.btn-lg.btn-success Add task
-    ol
-      each task, i in tasks
-        li= task
-          input.hidden(value=i)
-          button.remove Remove task
-          button.done Task done
-    button.removeAll Mark All Done
-
+  meta(name="viewport", content="width=device-width, initial-scale=1")
+  body 
+    #container
+      h1 TO-DO-LIST
+      form#toDoForm(action="tasks", method="POST")
+        input.input-lg(name='task', placeholder='add a task...', autofocus)
+        button.btn Add task
+      ol
+        each task in tasks
+          li
+            p.title(contenteditable=true)= task.name 
+            p= task.time
+              //- input.hidden(value=task.ID)
+            button.done(value=task.ID) Task done
+            button.remove(value=task.ID) Remove task
+            div.checkbox
+              label
+                input.checkbox(type="checkbox",value=task.ID) 
+                | Check me out
+        button.removeAll Mark As Done
