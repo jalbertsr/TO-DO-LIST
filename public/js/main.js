@@ -35,7 +35,6 @@ $('button.removeAll').on('click', function (e) {
   }).get()
 
   var ids = idsArray.join(',')
-
   $.ajax({
     url: '/tasks/'+ ids,
     method: 'PUT'
@@ -45,11 +44,38 @@ $('button.removeAll').on('click', function (e) {
   })
 })
 
-$('p.title').on('click', function(){
-  console.log('jjjjj')
-  
-});
+$('p.title').on('keypress', function(e){
+  if (e.keyCode === 13 ) changeTaskName(e)
+  else{
+    $('p.title').blur(function(e){
+      e.preventDefault()
+      const text = $(this).text()
+      const id = $(this).siblings('button').val()
+      const data = {name:text, ID:id}
+
+      $.ajax({
+        url: '/edit/',
+        method: 'PUT',
+        data
+      }).then( data => {}) 
+    })
+  }  
+})
 
 
+function changeTaskName(e){
+
+  e.preventDefault()
+      const text = $(this).text()
+      const id = $(this).siblings('button').val()
+      const data = {name:text, ID:id}
+
+      $.ajax({
+        url: '/edit/',
+        method: 'PUT',
+        data
+      }).then( data => {}) 
+
+}
 
 

@@ -32,7 +32,7 @@ app.get('/completed/', (req, res) => {
 // -------------- route calls -------------
 app.post('/tasks', (req, res) => {
   const taskName = req.body.task
-  const date = strftime('%F %T', new Date())
+  const date = strftime('%B %d, %Y %H:%M', new Date())
   const createId = () => '_' + Math.random().toString(36).substr(2, 9)
   // Math.random should be unique because of its seeding algorithm.
   // Convert it to base 36 (numbers + letters), and grab the first 9 characters
@@ -46,11 +46,7 @@ app.post('/tasks', (req, res) => {
 
 app.delete('/task/:id', (req, res) => {
 
-  const id = req.params.id 
-
-  // for (let i = 0; i < tasks.length; i++) {
-  //   if(tasks[i].ID === id) tasks.splice(i,1)
-  // }
+  const id = req.params.id
 
   tasks = tasks.filter( task => task.ID !== id)
 
@@ -74,7 +70,6 @@ app.put('/task/:id', (req, res) => {
 app.put('/tasks/:ids', (req, res) => {
   
   const idsArray = req.params.ids.split(',')
-  console.log(idsArray)
 
   for (let i = 0; i < idsArray.length; i++) {
     for(let j = 0; j< tasks.length; j++) {
@@ -86,6 +81,19 @@ app.put('/tasks/:ids', (req, res) => {
   }
 
   res.status(200).send('ok checkboxes done')
+})
+
+app.put('/edit/', (req, res) => {
+  const newName = req.body.name
+  const editedID = req.body.ID
+  console.log(editedID)
+  console.log(newName)
+  for (let i = 0; i < tasks.length; i++) {
+    if(tasks[i].ID === editedID){
+      tasks[i].name = newName
+    }
+  }
+  res.status(200).send('ok edits done')
 })
 
 app.listen(3001)
