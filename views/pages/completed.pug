@@ -1,12 +1,13 @@
 extends ../layout
-
 block content
-  .jumbotron
-    h1 DONE-LIST
-    ul 
-      each complete in completed
-        li
-          p= complete.name
-          p= complete.time
+    #container.row.col-md-offset-4.col-md-4
+      h1.projectName DONE  
+      ul 
+        each complete in completed
+          li
+            p.title= complete.name
+            p.date= complete.time
+      a(href='/') 
+        button.task Go to task List
 
           

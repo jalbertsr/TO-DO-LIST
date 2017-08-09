@@ -12,7 +12,9 @@
   "dependencies": {
     "body-parser": "^1.17.2",
     "express": "^4.15.4",
+    "express-session": "^1.15.5",
     "pug": "^2.0.0-rc.3",
+    "session-file-store": "^1.1.2",
     "strftime": "^0.10.0"
   }
 }

@@ -26,8 +26,13 @@ body {
   font-family: 'Quicksand', sans-serif;
 }
 
-p{
+p.title{
+  font-size: 18px;
+}
+
+p.date{
   font-size: 12px;
+  font-family: 'Quicksand', sans-serif;
 }
 
 .input-sm{
@@ -35,7 +40,7 @@ p{
   justify-content: center;
   margin-left: 5%;
   margin-top: 30px;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
   width: 100%;
 }
 
@@ -44,12 +49,22 @@ p{
   margin-top: 32px;
 }
 
+button.btn:visited, button.btn:focus, button.btn:hover {
+  color: white;
+  text-decoration: none;
+}
+
+ul{
+  list-style: none;
+}
+
 li{
   margin-bottom:5%;
+  font-size: 2em;
 }
 
 #container {
-  height: 600px;
+  height: 650px;
   margin-top: 20px;
   box-shadow: 0 0 20px #888888;
   background: -moz-linear-gradient(0deg, #08FEDD 13%, #E7F619 100%);
@@ -69,10 +84,6 @@ li{
   border: 1px solid #c0c0c0;
 }
 
-h2 {
-  text-align: center;
-  font-family: 'Quicksand', sans-serif;
-}
 
 #toDoForm {
   width: 100%;
@@ -84,46 +95,27 @@ form {
   font-family: 'Quicksand', sans-serif;
 }
 
-input.input-lg {
+input.input-sm {
   outline: none;
   border: none;
   padding: 0;
   text-indent: 10px;
 }
 
-button.btn, button.done, button.remove, button.removeAll {
+button.btn, button.done, button.remove, button.removeAll, button.completed {
   height: 100%;
   border: none;
   background-color: #000000;
-  color: #FFFFFF;
-  width: 20%;
+  color: white;
   font-family: 'Quicksand', sans-serif;
   font-size: 1rem;
   cursor: pointer;
 }
 
-@media screen and (max-width: 480px){
-  button{
-    font-size: 0.6rem;
-  }
+button.done, button.remove{
+  width: 20%;
 }
 
-button:hover {
-  background-color: #161616;
-}
-
-::-webkit-input-placeholder {
-  color: #A7B09E;
-  text-indent: 10px;
-  font-family: 'Quicksand', sans-serif;
-}
-
-::-moz-placeholder {
-  /* Firefox 19+ */
-  color: #A7B09E;
-  text-indent: 10px;
-  font-family: 'Quicksand', sans-serif;
-}
 
 div.checkbox {
   display: inline;
