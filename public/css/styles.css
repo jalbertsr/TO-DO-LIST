@@ -21,18 +21,34 @@ body {
   overflow: hidden;
 }
 
-.projectName{
+h1.projectName{
   text-align: center;
   font-family: 'Quicksand', sans-serif;
 }
 
+h1.projectNameDone{
+  text-align: center;
+  font-family: 'Quicksand', sans-serif;
+  margin-bottom: 30px;
+}
+
+p.taskDone{
+  display: inline-block;
+}
+
+button.bDone{
+  display: inline-block;
+}
+
 p.title{
   font-size: 18px;
+  margin-bottom: 0px;
 }
 
 p.date{
   font-size: 12px;
   font-family: 'Quicksand', sans-serif;
+  margin-bottom: 10px;
 }
 
 .input-sm{
@@ -116,15 +132,32 @@ button.done, button.remove{
   width: 20%;
 }
 
-
 div.checkbox {
   display: inline;
 }
 
-ol li {
+label {
+  display: block;
+  padding-left: 15px;
+  text-indent: -5px;
+  font-size: 10px;
+}
+input.checkbox {
+  width: 13px;
+  height: 13px;
+  padding: 0;
+  margin:0;
+  vertical-align: bottom;
+  font-size: 10px;
+  position: relative;
+  top: 5px;
+  *overflow: hidden;
+}
+
+ol>li {
   font-family: 'Kalam', cursive;
   color: #161616;
-  font-size: 1rem;
+  font-size: 18px;
   font-weight: bold;
 }
 

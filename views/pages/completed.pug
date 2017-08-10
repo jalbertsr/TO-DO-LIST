@@ -1,13 +1,14 @@
 extends ../layout
 block content
     #container.row.col-md-offset-4.col-md-4
-      h1.projectName DONE  
-      ul 
+      h1.projectNameDone DONE  
+      ul.row.col-md-offset-1.col-md-11
         each complete in completed
           li
-            p.title= complete.name
+            p.title.taskDone= complete.name
             p.date= complete.time
-      a(href='/') 
-        button.task Go to task List
+            button.remove.bDone(value=complete.ID) Remove
+        a(href='/') 
+          button.completed Go to task List
 
           
